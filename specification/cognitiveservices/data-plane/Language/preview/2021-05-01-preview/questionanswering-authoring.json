@@ -42,6 +42,10 @@
         "produces": [
           "application/json"
         ],
+        "x-ms-pageable": {
+          "nextLinkName": null,
+          "itemName": "projects"
+        },
         "responses": {
           "200": {
             "description": "The metadata of all projects.",
@@ -112,6 +116,7 @@
             "description": "Parameters needed to create the project.",
             "in": "body",
             "name": "body",
+            "x-ms-client-name": "parameters",
             "required": true,
             "schema": {
               "$ref": "#/definitions/CreateProjectParameters"
@@ -203,6 +208,7 @@
             "description": "Parameters required for export project job.",
             "in": "body",
             "name": "body",
+            "x-ms-client-name": "exportJob",
             "schema": {
               "$ref": "#/definitions/ExportJobParameters"
             }
@@ -298,6 +304,7 @@
             "description": "Project assets the needs to be imported.",
             "in": "body",
             "name": "body",
+            "x-ms-client-name": "importJob",
             "schema": {
               "$ref": "#/definitions/ImportJobParameters"
             }
