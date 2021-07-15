@@ -119,7 +119,7 @@
             "x-ms-client-name": "parameters",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/CreateProjectParameters"
+              "$ref": "#/definitions/CreateProjectOptions"
             }
           },
           {
@@ -210,7 +210,7 @@
             "name": "body",
             "x-ms-client-name": "exportJob",
             "schema": {
-              "$ref": "#/definitions/ExportJobParameters"
+              "$ref": "#/definitions/ExportJobOptions"
             }
           },
           {
@@ -306,7 +306,7 @@
             "name": "body",
             "x-ms-client-name": "importJob",
             "schema": {
-              "$ref": "#/definitions/ImportJobParameters"
+              "$ref": "#/definitions/ImportJobOptions"
             }
           },
           {
@@ -474,6 +474,357 @@
           }
         }
       }
+    },
+    "/query-knowledgebases/projects/{projectName}/synonyms": {
+      "get": {
+        "summary": "Gets all the synonyms of a project.",
+        "operationId": "QuestionAnsweringProjects_GetSynonyms",
+        "parameters": [
+          {
+            "$ref": "common.json#/parameters/ProjectNamePathParameter"
+          },
+          {
+            "$ref": "common.json#/parameters/ApiVersionParameter"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "All the synonyms of a project.",
+            "schema": {
+              "$ref": "#/definitions/SynonymAssets"
+            }
+          },
+          "default": {
+            "description": "Error response.",
+            "schema": {
+              "$ref": "common.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Successful query": {
+            "$ref": "./examples/questionanswering/authoring/SuccessfulGetSynonyms.json"
+          }
+        }
+      },
+      "put": {
+        "summary": "Updates all the synonyms of a project.",
+        "operationId": "QuestionAnsweringProjects_UpdateSynonyms",
+        "parameters": [
+          {
+            "$ref": "common.json#/parameters/ProjectNamePathParameter"
+          },
+          {
+            "$ref": "common.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "description": "All the synonyms of a project.",
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SynonymAssets"
+            }
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "204": {
+            "description": "Synonyms update successfully."
+          },
+          "default": {
+            "description": "Error response.",
+            "schema": {
+              "$ref": "common.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Successful query": {
+            "$ref": "./examples/questionanswering/authoring/SuccessfulUpdateSynonyms.json"
+          }
+        }
+      }
+    },
+    "/query-knowledgebases/projects/{projectName}/sources": {
+      "get": {
+        "summary": "Gets all the sources of a project.",
+        "operationId": "QuestionAnsweringProjects_GetSources",
+        "parameters": [
+          {
+            "$ref": "common.json#/parameters/ProjectNamePathParameter"
+          },
+          {
+            "$ref": "common.json#/parameters/ApiVersionParameter"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "x-ms-pageable": {
+          "nextLinkName": null,
+          "itemName": "sources"
+        },
+        "responses": {
+          "200": {
+            "description": "All the sources of a project.",
+            "schema": {
+              "$ref": "#/definitions/QnaSources"
+            }
+          },
+          "default": {
+            "description": "Error response.",
+            "schema": {
+              "$ref": "common.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Successful query": {
+            "$ref": "./examples/questionanswering/authoring/SuccessfulGetSources.json"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Updates the sources of a project.",
+        "operationId": "QuestionAnsweringProjects_UpdateSources",
+        "parameters": [
+          {
+            "$ref": "common.json#/parameters/ProjectNamePathParameter"
+          },
+          {
+            "$ref": "common.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "description": "Update sources parameters of a project.",
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateSourcesOptions"
+            }
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "202": {
+            "description": "A successful call results with an Operation-Location header used to check the status of the job.",
+            "headers": {
+              "Operation-Location": {
+                "type": "string"
+              }
+            }
+          },
+          "default": {
+            "description": "Error response.",
+            "schema": {
+              "$ref": "common.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Successful query": {
+            "$ref": "./examples/questionanswering/authoring/SuccessfulUpdateSources.json"
+          }
+        }
+      }
+    },
+    "/query-knowledgebases/projects/{projectName}/sources/jobs/{jobId}": {
+      "get": {
+        "summary": "Gets the status of update sources job.",
+        "operationId": "QuestionAnsweringProjects_GetUpdateSourcesStatus",
+        "parameters": [
+          {
+            "$ref": "common.json#/parameters/ProjectNamePathParameter"
+          },
+          {
+            "$ref": "common.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "#/parameters/JobIdParameter"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Update sources job state.",
+            "schema": {
+              "$ref": "#/definitions/JobState"
+            }
+          },
+          "default": {
+            "description": "Error response.",
+            "schema": {
+              "$ref": "common.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Successful query": {
+            "$ref": "./examples/questionanswering/authoring/SuccessfulUpdateSourcesJobStatus.json"
+          }
+        }
+      }
+    },
+    "/query-knowledgebases/projects/{projectName}/qnas": {
+      "get": {
+        "summary": "Gets all the QnAs of a project.",
+        "operationId": "QuestionAnsweringProjects_GetQnas",
+        "parameters": [
+          {
+            "$ref": "common.json#/parameters/ProjectNamePathParameter"
+          },
+          {
+            "$ref": "common.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "#/parameters/SourceFilterParameter"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "x-ms-pageable": {
+          "nextLinkName": null,
+          "itemName": "qnas"
+        },
+        "responses": {
+          "200": {
+            "description": "All the QnAs of a project.",
+            "schema": {
+              "$ref": "#/definitions/QnaAssets"
+            }
+          },
+          "default": {
+            "description": "Error response.",
+            "schema": {
+              "$ref": "common.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Successful query": {
+            "$ref": "./examples/questionanswering/authoring/SuccessfulGetQnas.json"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Updates the QnAs of a project.",
+        "operationId": "QuestionAnsweringProjects_UpdateQnas",
+        "parameters": [
+          {
+            "$ref": "common.json#/parameters/ProjectNamePathParameter"
+          },
+          {
+            "$ref": "common.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "description": "Update QnAs parameters of a project.",
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateQnaOptions"
+            }
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "202": {
+            "description": "A successful call results with an Operation-Location header used to check the status of the job.",
+            "headers": {
+              "Operation-Location": {
+                "type": "string"
+              }
+            }
+          },
+          "default": {
+            "description": "Error response.",
+            "schema": {
+              "$ref": "common.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Successful query": {
+            "$ref": "./examples/questionanswering/authoring/SuccessfulUpdateQnas.json"
+          }
+        }
+      }
+    },
+    "/query-knowledgebases/projects/{projectName}/qnas/jobs/{jobId}": {
+      "get": {
+        "summary": "Gets the status of update QnAs job.",
+        "operationId": "QuestionAnsweringProjects_GetUpdateQnasStatus",
+        "parameters": [
+          {
+            "$ref": "common.json#/parameters/ProjectNamePathParameter"
+          },
+          {
+            "$ref": "common.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "#/parameters/JobIdParameter"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Update QnAs job state.",
+            "schema": {
+              "$ref": "#/definitions/JobState"
+            }
+          },
+          "default": {
+            "description": "Error response.",
+            "schema": {
+              "$ref": "common.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Successful query": {
+            "$ref": "./examples/questionanswering/authoring/SuccessfulUpdateQnasJobStatus.json"
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -508,7 +859,7 @@
         },
         "defaultAnswer": {
           "type": "string",
-          "description": "Default Answer response when no good match is found in the Knowledgebase."
+          "description": "Default Answer response when no good match is found in the knowledge base."
         },
         "multilingualResource": {
           "type": "boolean",
@@ -531,7 +882,7 @@
         }
       }
     },
-    "CreateProjectParameters": {
+    "CreateProjectOptions": {
       "type": "object",
       "description": "Parameters needed to create the project.",
       "additionalProperties": false,
@@ -553,7 +904,7 @@
         },
         "defaultAnswer": {
           "type": "string",
-          "description": "Default Answer response when no good match is found in the Knowledgebase."
+          "description": "Default Answer response when no good match is found in the knowledge base."
         },
         "multilingualResource": {
           "type": "boolean",
@@ -561,7 +912,7 @@
         }
       }
     },
-    "ExportJobParameters": {
+    "ExportJobOptions": {
       "type": "object",
       "description": "Parameters required for export project job.",
       "additionalProperties": false,
@@ -571,16 +922,13 @@
         }
       }
     },
-    "ImportJobParameters": {
+    "ImportJobOptions": {
       "type": "object",
       "description": "Project assets the needs to be imported.",
       "additionalProperties": false,
       "properties": {
-        "importAssetTypes": {
-          "$ref": "#/definitions/AssetTypes"
-        },
         "projectMetadata": {
-          "$ref": "#/definitions/ProjectMetadata"
+          "$ref": "#/definitions/CreateProjectOptions"
         },
         "assets": {
           "$ref": "#/definitions/Assets"
@@ -591,14 +939,14 @@
       "type": "array",
       "description": "Collection of asset types.",
       "items": {
-        "$ref": "#/definitions/AssetType"
+        "$ref": "#/definitions/AssetKind"
       }
     },
-    "AssetType": {
+    "AssetKind": {
       "type": "string",
       "description": "Asset types for the project.",
       "x-ms-enum": {
-        "name": "assetType",
+        "name": "assetKind",
         "modelAsString": true
       },
       "enum": [
@@ -713,6 +1061,16 @@
         }
       }
     },
+    "SynonymAssets": {
+      "type": "object",
+      "description": "All synonym assets for this project.",
+      "additionalProperties": false,
+      "properties": {
+        "synonyms": {
+          "$ref": "#/definitions/SynonymAsset"
+        }
+      }
+    },
     "SynonymAsset": {
       "type": "array",
       "description": "Collection of synonyms.",
@@ -737,6 +1095,16 @@
           "items": {
             "type": "string"
           }
+        }
+      }
+    },
+    "QnaAssets": {
+      "type": "object",
+      "description": "All QnA assets for the project.",
+      "additionalProperties": false,
+      "properties": {
+        "qnas": {
+          "$ref": "#/definitions/QnaAsset"
         }
       }
     },
@@ -855,6 +1223,155 @@
           "maxLength": 200
         }
       }
+    },
+    "UpdateOperationKind": {
+      "type": "string",
+      "description": "Update operation type for assets.",
+      "enum": [
+        "add",
+        "delete",
+        "replace"
+      ],
+      "x-ms-enum": {
+        "modelAsString": true,
+        "name": "updateOperationKind"
+      }
+    },
+    "UpdateSourcesOptions": {
+      "type": "array",
+      "description": "A list of sources to be updated.",
+      "additionalProperties": false,
+      "items": {
+        "$ref": "#/definitions/UpdateSourceRecord"
+      }
+    },
+    "UpdateQnaOptions": {
+      "type": "array",
+      "description": "A list of QnAs to be updated.",
+      "additionalProperties": false,
+      "items": {
+        "$ref": "#/definitions/UpdateQnaRecord"
+      }
+    },
+    "UpdateQnaRecord": {
+      "type": "object",
+      "description": "QnA record to be updated.",
+      "additionalProperties": false,
+      "required": [
+        "op",
+        "value"
+      ],
+      "properties": {
+        "op": {
+          "type": "string",
+          "$ref": "#/definitions/UpdateOperationKind"
+        },
+        "value": {
+          "$ref": "#/definitions/QnaRecord"
+        }
+      }
+    },
+    "UpdateSourceRecord": {
+      "type": "object",
+      "description": "Source to be updated.",
+      "additionalProperties": false,
+      "required": [
+        "op",
+        "value"
+      ],
+      "properties": {
+        "op": {
+          "type": "string",
+          "$ref": "#/definitions/UpdateOperationKind"
+        },
+        "value": {
+          "$ref": "#/definitions/QnaSourceMetadata"
+        }
+      }
+    },
+    "QnaSources": {
+      "type": "object",
+      "description": "All QnA sources for the project.",
+      "additionalProperties": false,
+      "properties": {
+        "sources": {
+          "$ref": "#/definitions/QnaSourcesMetadata"
+        }
+      }
+    },
+    "QnaSourcesMetadata": {
+      "type": "array",
+      "description": "Custom sources from which QnAs were extracted or explicitly added to the project.",
+      "additionalProperties": false,
+      "items": {
+        "$ref": "#/definitions/QnaSourceRecord"
+      }
+    },
+    "QnaSourceRecord": {
+      "description": "Custom source record with last updated date-time.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/QnaSourceMetadata"
+        },
+        {
+          "$ref": "#/definitions/LastUpdatedDateTimeParameter"
+        }
+      ]
+    },
+    "QnaSourceMetadata": {
+      "type": "object",
+      "description": "Input source file or url details.",
+      "additionalProperties": false,
+      "required": [
+        "sourceUri",
+        "sourceKind"
+      ],
+      "properties": {
+        "sourceName": {
+          "type": "string",
+          "description": "Name of the Source.",
+          "maxLength": 200,
+          "minLength": 1
+        },
+        "sourceUri": {
+          "type": "string",
+          "description": "URI location for the file or url.",
+          "format": "uri"
+        },
+        "sourceKind": {
+          "type": "string",
+          "$ref": "#/definitions/QnaSourceKind",
+          "default": "url"
+        },
+        "contentStructureKind": {
+          "type": "string",
+          "$ref": "#/definitions/SourceContentStructureKind",
+          "default": "Unstructured"
+        }
+      }
+    },
+    "QnaSourceKind": {
+      "type": "string",
+      "description": "Supported source types.",
+      "x-ms-enum": {
+        "name": "sourceKind",
+        "modelAsString": true
+      },
+      "enum": [
+        "file",
+        "url"
+      ]
+    },
+    "SourceContentStructureKind": {
+      "type": "string",
+      "description": "Content structure type for sources.",
+      "enum": [
+        "unstructured"
+      ],
+      "x-ms-enum": {
+        "modelAsString": true,
+        "name": "sourceContentStructureKind"
+      }
     }
   },
   "parameters": {
@@ -870,16 +1387,48 @@
       "name": "format",
       "type": "string",
       "in": "query",
-      "description": "Knowledgebase Import or Export format.",
+      "description": "Knowledge base Import or Export format.",
       "default": "json",
-      "x-ms-enum": {
-        "name": "format",
-        "modelAsString": true
-      },
       "enum": [
         "json",
-        "qna"
+        "tsv",
+        "excel",
+        "allDataExcel",
+        "allDataTsv"
       ],
+      "x-ms-enum": {
+        "name": "format",
+        "modelAsString": true,
+        "values": [
+          {
+            "value": "json",
+            "description": "Export or Import QnA assets in JSON format."
+          },
+          {
+            "value": "tsv",
+            "description": "Export or Import QnA assets in Tsv format."
+          },
+          {
+            "value": "excel",
+            "description": "Export or Import QnA assets in Excel format."
+          },
+          {
+            "value": "allDataExcel",
+            "description": "Export or Import knowledge base replica including all assets and metadata in Excel format."
+          },
+          {
+            "value": "allDataTsv",
+            "description": "Export or Import knowledge base replica including all assets and metadata in Tsv format."
+          }
+        ]
+      },
+      "x-ms-parameter-location": "method"
+    },
+    "SourceFilterParameter": {
+      "name": "source",
+      "in": "query",
+      "description": "Source of the QnA.",
+      "type": "string",
       "x-ms-parameter-location": "method"
     }
   }
